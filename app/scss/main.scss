@@ -1,3 +1,13 @@
 @import "config";
 @import "normal";
 @import "vars";
+
+body {
+  display: flex;
+  align-items: center;
+}
+
+.cak {
+  display: flex;
+  align-items: center;
+}

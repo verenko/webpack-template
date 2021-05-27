@@ -1,12 +1,13 @@
-const fs                            = require('fs');
-const path                          = require('path');
-const HTMLWebpackPlugin             = require('html-webpack-plugin');
-const {CleanWebpackPlugin}          = require('clean-webpack-plugin');
-const MiniCssExtractPlugin          = require('mini-css-extract-plugin');
-const CopyWebpackPlugin             = require('copy-webpack-plugin');
+const fs = require('fs');
+const path = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const {
+  CleanWebpackPlugin
+} = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetWebpackPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserWebpackPlugin           = require('terser-webpack-plugin');
-const ImageminPlugin                = require('imagemin-webpack');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack');
 
 
 //
@@ -23,7 +24,7 @@ const optimization = () => {
   const configObj = {
     splitChunks: {
       chunks: 'all'
-    }
+    },
   };
 
   if (isProduction) {
@@ -53,6 +54,7 @@ const plugins = () => {
     new MiniCssExtractPlugin({
       filename: `./css/[name].min.css`
     })
+
   ];
 
   if (isProduction) {
@@ -113,19 +115,9 @@ module.exports = {
         test: /\.html$/,
         loader: 'html-loader',
       },
+
       {
-        test: /\.css$/i,
-        use: [{
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: isDevelop
-            },
-          },
-          'css-loader'
-        ],
-      },
-      {
-        test: /\.s[ac]ss$/,
+        test: /\.(css|sass|scss)$/,
         use: [{
             loader: MiniCssExtractPlugin.loader,
             options: {
@@ -135,6 +127,7 @@ module.exports = {
             }
           },
           'css-loader',
+          'postcss-loader',
           'sass-loader'
         ],
       },
